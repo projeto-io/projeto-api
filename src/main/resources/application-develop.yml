@@ -1,0 +1,16 @@
+spring:
+  profiles: develop
+
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3306/projeto?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+      username: projeto
+      password: projeto12#$
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    database-platform: MySQL
+    show-sql: true
+    hibernate:
+      ddl-auto: update
