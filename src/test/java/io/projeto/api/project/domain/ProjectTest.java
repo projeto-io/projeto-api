@@ -1,9 +1,11 @@
-package io.projeto.api.domain.project;
+package io.projeto.api.project.domain;
 
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,6 +34,6 @@ class ProjectTest {
     }
 
     private void constructWithName(String name) {
-        new Project(name, "description", "introduction", null, null, null, null, null);
+        new Project(UUID.randomUUID().toString(), name, "description", "introduction", null, null, null, null, null);
     }
 }

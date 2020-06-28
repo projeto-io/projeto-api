@@ -1,4 +1,4 @@
-package io.projeto.api.domain.project;
+package io.projeto.api.project.domain;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -9,6 +9,7 @@ public enum ProjectStatus {
     RUNNING("진행중"),
     ARCHIVED("읽기전용"),
     DELETED("삭제됨");
+
 
     static {
         DRAFT.movableStatuses = new HashSet<>(Arrays.asList(RUNNING));
@@ -30,5 +31,9 @@ public enum ProjectStatus {
             return false;
         }
         return movableStatuses.contains(to);
+    }
+
+    public static boolean isValidInitialStatus(ProjectStatus projectStatus) {
+        return DRAFT.equals(projectStatus) || RUNNING.equals(projectStatus);
     }
 }
