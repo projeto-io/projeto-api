@@ -1,14 +1,12 @@
 package io.projeto.api.project.controller;
 
+import io.projeto.api.common.api.APIResponse;
 import io.projeto.api.project.application.ProjectReadModel;
 import io.projeto.api.project.application.ProjectService;
 import io.projeto.api.project.command.ProjectCreate;
 import io.projeto.api.project.presentation.ProjectPresentation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,10 +17,15 @@ public class ProjectController {
     private final ProjectReadModel projectReadModel;
 
     @PostMapping
-    public ProjectPresentation createProject(@RequestBody ProjectCreate request) {
+    public APIResponse<ProjectPresentation> createProject(@RequestBody ProjectCreate request) {
         projectService.createProject(request);
 
-        return projectReadModel.findByProjectId(request.getId());
+        return APIResponse.of(projectReadModel.findByProjectId(request.getId()));
+    }
+
+    @GetMapping("/{projectId}")
+    public APIResponse<ProjectPresentation> findByProjectId(@PathVariable("projectId") String projectId) {
+        return APIResponse.of(projectReadModel.findByProjectId(projectId));
     }
 
 }
