@@ -1,19 +1,19 @@
 package io.projeto.api.project.command;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.projeto.api.common.util.UUIDGenerator;
 import io.projeto.api.project.domain.ProjectStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Set;
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
 public class ProjectCreate {
     @JsonIgnore
-    private String id = UUID.randomUUID().toString();
+    private String id = UUIDGenerator.nextUUID();
 
     @NotBlank(message = "프로젝트명을 입력해주세요.")
     private String name;

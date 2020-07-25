@@ -1,5 +1,6 @@
 package io.projeto.api.project.domain;
 
+import io.projeto.api.common.util.UUIDGenerator;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.UUID;
 
 @Entity(name = "project_hashtag")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,7 +25,7 @@ public class ProjectHashtag {
     private String hashtag;
 
     ProjectHashtag(String projectId, String hashtag) {
-        this.id = UUID.randomUUID().toString();
+        this.id = UUIDGenerator.nextUUID();
         this.projectId = projectId;
         this.hashtag = hashtag;
     }
