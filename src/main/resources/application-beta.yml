@@ -1,0 +1,22 @@
+spring:
+  profiles: beta
+
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://projeto-beta.crubtijmhhgz.ap-northeast-2.rds.amazonaws.com:3306/projeto?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false
+      username: projeto_beta
+      password: projeto_beta_123!@#
+      driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+projeto:
+  jwt:
+    prefix: Bearer
+    secret: jwtbetasecretcksckscks
+    expiresIn: 1800000

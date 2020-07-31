@@ -18,3 +18,9 @@ spring:
   h2:
     console:
       enabled: true
+
+projeto:
+  jwt:
+    prefix: Bearer
+    secret: jwtsecret
+    expiresIn: 1800000
