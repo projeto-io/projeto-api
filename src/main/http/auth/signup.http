@@ -1,0 +1,12 @@
+POST localhost:8080/auth/signup
+Content-Type: application/json
+
+{
+  "email": "nooheat1228@gmail.com",
+  "password": "helloitsme!",
+  "name": "윤찬명",
+  "nickname": "찬묭키",
+  "telephone": "01000000000"
+}
+
+###
