@@ -34,6 +34,6 @@ class ProjectTest {
     }
 
     private void constructWithName(String name) {
-        new Project(UUID.randomUUID().toString(), name, "description", "introduction", null, null, null, null, null);
+        new Project(UUID.randomUUID().toString(), name, "description", "introduction", null, null, null, null, ProjectStatus.DRAFT);
     }
 }
