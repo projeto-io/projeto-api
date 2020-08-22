@@ -3,6 +3,7 @@ package io.projeto.api.auth.application;
 import io.projeto.api.auth.command.ProjetoSignup;
 import io.projeto.api.auth.domain.User;
 import io.projeto.api.auth.domain.UserRepository;
+import io.projeto.api.common.api.APIException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,18 @@ public class ProjetoSignupService {
                 request.getTelephone(),
                 passwordEncoder
         );
+
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw APIException.emailDuplicated();
+        }
+
+        if (userRepository.existsByNickname(user.getNickname())) {
+            throw APIException.nicknameDuplicated();
+        }
+
+        if (userRepository.existsByTelephone(user.getTelephone())) {
+            throw APIException.telephoneDuplicated();
+        }
 
         userRepository.save(user);
     }
