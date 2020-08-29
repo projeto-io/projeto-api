@@ -16,22 +16,31 @@ import java.util.List;
 @Entity(name = "user")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<UserSocialLogin> socialLogins;
+    public static User GUEST = new User();
+
     @Id
     private String id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "nickname", nullable = false)
     private String nickname;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "telephone", nullable = false)
     private String telephone;
+
     @Column(name = "telephone_certified", nullable = false)
     private Boolean telephoneCertified;
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<UserSocialLogin> socialLogins;
 
 
     public User(String id, String name, String nickname, String email, String password, String telephone, PasswordEncoder passwordEncoder) {

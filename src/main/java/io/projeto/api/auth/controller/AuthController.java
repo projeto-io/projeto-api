@@ -6,9 +6,9 @@ import io.projeto.api.auth.application.ProjetoSignupService;
 import io.projeto.api.auth.application.UserReadModel;
 import io.projeto.api.auth.command.ProjetoAuthenticate;
 import io.projeto.api.auth.command.ProjetoSignup;
-import io.projeto.api.auth.domain.User;
 import io.projeto.api.common.api.APIResponse;
 import io.projeto.api.common.security.AuthRequired;
+import io.projeto.api.common.security.ProjetoAuthentication;
 import io.projeto.api.common.token.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +36,11 @@ public class AuthController {
 
 
     @GetMapping("/me")
-    @AuthRequired
-    public APIResponse<String> greetingAuthenticatedUser(User user) {
-        return APIResponse.of("hello, " + user.getName());
+    @AuthRequired(allowGuest = true)
+    public APIResponse<String> greetingAuthenticatedUser(ProjetoAuthentication authentication) {
+        if (authentication.isGuest()) {
+            return APIResponse.of("hello, Guest");
+        }
+        return APIResponse.of("hello, " + authentication.getUserId());
     }
 }
