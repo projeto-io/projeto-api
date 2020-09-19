@@ -16,6 +16,10 @@ public class APIException extends RuntimeException {
         return new APIException("사용자 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
     }
 
+    public static APIException badRequest(String message) {
+        return new APIException(message, HttpStatus.BAD_REQUEST);
+    }
+
     public static APIException nicknameDuplicated() {
         return new APIException("이미 사용중인 닉네임입니다.", HttpStatus.BAD_REQUEST);
     }

@@ -1,5 +1,7 @@
 package io.projeto.api.project.application;
 
+import io.projeto.api.common.api.APIException;
+import io.projeto.api.common.security.ProjetoAuthentication;
 import io.projeto.api.project.command.ProjectCreate;
 import io.projeto.api.project.domain.*;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,11 @@ public class ProjectService implements ProjectCreateService {
     private final ProjectRepository projectRepository;
 
     @Transactional
-    public void createProject(ProjectCreate request) {
+    public void createProject(ProjetoAuthentication authentication, ProjectCreate request) {
+        String userId = authentication.getUserId();
+        if (!request.containsUserId(userId)) {
+            throw APIException.badRequest("작성자는 프로젝트의 멤버로 포함되어야 합니다.");
+        }
         Set<ProjectMember> projectMembers = Optional.ofNullable(request.getMembers()).orElse(new HashSet<>()).stream()
                 .map(member -> new ProjectMember(request.getId(), member.getUserId(), member.getRole(), member.getIsLeader())).collect(Collectors.toSet());
 

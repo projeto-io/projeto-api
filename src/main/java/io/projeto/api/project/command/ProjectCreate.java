@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -51,5 +52,21 @@ public class ProjectCreate {
         this.planFiles = planFiles;
         this.members = members;
         this.status = status;
+    }
+
+    public Set<String> getHashtags() {
+        return hashtags != null ? hashtags : new HashSet<>();
+    }
+
+    public Set<ProjectPlanFileRequest> getPlanFiles() {
+        return planFiles != null ? planFiles : new HashSet<>();
+    }
+
+    public Set<ProjectMemberRequest> getMembers() {
+        return members != null ? members : new HashSet<>();
+    }
+
+    public boolean containsUserId(String userId) {
+        return getMembers().stream().anyMatch(member -> member.getUserId().equals(userId));
     }
 }

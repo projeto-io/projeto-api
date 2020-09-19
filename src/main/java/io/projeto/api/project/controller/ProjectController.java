@@ -1,6 +1,8 @@
 package io.projeto.api.project.controller;
 
 import io.projeto.api.common.api.APIResponse;
+import io.projeto.api.common.security.AuthRequired;
+import io.projeto.api.common.security.ProjetoAuthentication;
 import io.projeto.api.project.application.ProjectReadModel;
 import io.projeto.api.project.application.ProjectService;
 import io.projeto.api.project.command.ProjectCreate;
@@ -17,8 +19,9 @@ public class ProjectController {
     private final ProjectReadModel projectReadModel;
 
     @PostMapping
-    public APIResponse<ProjectPresentation> createProject(@RequestBody ProjectCreate request) {
-        projectService.createProject(request);
+    @AuthRequired
+    public APIResponse<ProjectPresentation> createProject(ProjetoAuthentication authentication, @RequestBody ProjectCreate request) {
+        projectService.createProject(authentication, request);
 
         return APIResponse.of(projectReadModel.findByProjectId(request.getId()));
     }

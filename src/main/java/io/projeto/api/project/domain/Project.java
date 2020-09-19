@@ -61,7 +61,7 @@ public class Project implements Persistable<String> {
         setDescription(description);
         setExplanation(explanation);
         setLogoFiles(logoFiles);
-        setHastags(hashtags);
+        setHashtags(hashtags);
         setProjectMembers(projectMembers);
         setProjectPlanFiles(projectPlanFiles);
         initStatus(status);
@@ -87,7 +87,7 @@ public class Project implements Persistable<String> {
         this.projectMembers = projectMembers;
     }
 
-    private void setHastags(Set<String> hashtags) {
+    private void setHashtags(Set<String> hashtags) {
         if (Objects.isNull(hashtags)) {
             this.hashtags = new HashSet<>();
             return;
