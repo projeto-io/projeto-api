@@ -5,6 +5,7 @@ import io.projeto.api.auth.domain.User;
 import io.projeto.api.auth.domain.UserRepository;
 import io.projeto.api.common.api.APIException;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,10 +44,13 @@ public class ProjetoSignupService {
     }
 
     @Transactional(readOnly = true)
-    public Boolean checkEmailAlreadyExists(String email) {
-        if (email == null) {
+    public String findNicknameByEmail(String email) {
+        if (StringUtils.isBlank(email)) {
             throw APIException.badRequest("이메일을 입력해주세요.");
         }
-        return userRepository.existsByEmail(email);
+
+        return userRepository.findByEmail(email)
+                .map(User::getNickname)
+                .orElse(null);
     }
 }

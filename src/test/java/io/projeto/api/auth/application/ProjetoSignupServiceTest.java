@@ -67,9 +67,11 @@ class ProjetoSignupServiceTest {
     @Test
     @DisplayName("이메일 유효성 체크 - 이미 회원가입이 되어있는 경우 true / 아닌 경우 false를 반환한다.")
     public void checkEmailAlreadyExists() {
-        assertThrows(APIException.class, () -> service.checkEmailAlreadyExists(null), "이메일을 입력해주세요.");
-        assertEquals(true, service.checkEmailAlreadyExists("someemail@gmail.com"));
-        assertEquals(false, service.checkEmailAlreadyExists("differentEmail@gmail.com"));
+        assertThrows(APIException.class, () -> service.findNicknameByEmail(null), "이메일을 입력해주세요.");
+        assertThrows(APIException.class, () -> service.findNicknameByEmail(""), "이메일을 입력해주세요.");
+        assertThrows(APIException.class, () -> service.findNicknameByEmail("  "), "이메일을 입력해주세요.");
+        assertEquals("nickname", service.findNicknameByEmail("someemail@gmail.com"));
+        assertEquals(null, service.findNicknameByEmail("differentEmail@gmail.com"));
     }
 
     @AfterEach
