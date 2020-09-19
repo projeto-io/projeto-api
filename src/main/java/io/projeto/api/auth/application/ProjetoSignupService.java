@@ -41,4 +41,12 @@ public class ProjetoSignupService {
 
         userRepository.save(user);
     }
+
+    @Transactional(readOnly = true)
+    public Boolean checkEmailAlreadyExists(String email) {
+        if (email == null) {
+            throw APIException.badRequest("이메일을 입력해주세요.");
+        }
+        return userRepository.existsByEmail(email);
+    }
 }

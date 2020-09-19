@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("회원가입 >")
@@ -61,6 +62,14 @@ class ProjetoSignupServiceTest {
     public void signupFailsWhenTelephoneHasTaken() {
         ProjetoSignup request = new ProjetoSignup(UUIDGenerator.nextUUID(), "differentEmail@gmail.com", "password123!@#", "찬명2", "nickname2", "01012345678");
         assertThrows(APIException.class, () -> service.signup(request), "이미 사용중인 전화번호입니다.");
+    }
+
+    @Test
+    @DisplayName("이메일 유효성 체크 - 이미 회원가입이 되어있는 경우 true / 아닌 경우 false를 반환한다.")
+    public void checkEmailAlreadyExists() {
+        assertThrows(APIException.class, () -> service.checkEmailAlreadyExists(null), "이메일을 입력해주세요.");
+        assertEquals(true, service.checkEmailAlreadyExists("someemail@gmail.com"));
+        assertEquals(false, service.checkEmailAlreadyExists("differentEmail@gmail.com"));
     }
 
     @AfterEach

@@ -43,4 +43,9 @@ public class AuthController {
         }
         return APIResponse.of("hello, " + authentication.getUserId());
     }
+
+    @GetMapping("/check")
+    public APIResponse<Boolean> checkEmailAlreadyExists(@RequestParam("email") String email) {
+        return APIResponse.of(projetoSignupService.checkEmailAlreadyExists(email));
+    }
 }
